@@ -2,7 +2,7 @@ class GameScene1 extends Phaser.Scene {
   constructor() {
     super('GameScene1');
 
-    // --- NEW: Dialogue properties ---
+    
     this.dialogueLines = null;
     this.dialogueIndex = 0;
     this.dialogueBox = null;
@@ -21,7 +21,7 @@ class GameScene1 extends Phaser.Scene {
     this.load.audio('bg_music3', 'assets/audio/bg_music3.mp3');
 
 
-    // Load all spritesheets
+    
     this.load.spritesheet('appearing', 'assets/sprites/appearing.png', {
       frameWidth: 96,
       frameHeight: 96
@@ -53,12 +53,12 @@ class GameScene1 extends Phaser.Scene {
   }
 
   create() {
-      // --- Background Music ---
+      
 if (!this.sound.get('bg_music3')) {
   const music = this.sound.add('bg_music3', { loop: true, volume: 0 });
   music.play();
 
-  this.sound.music = music; // Store reference globally
+  this.sound.music = music; 
 
   this.tweens.add({
     targets: music,
@@ -69,11 +69,11 @@ if (!this.sound.get('bg_music3')) {
 }
 
 
-    // Store spawn point and add flags to prevent multiple triggers
+    
     this.spawnPoint = { x: 30, y: 290 };
     this.isRespawning = false;
     this.isTransitioning = false;
-    this.inDialogue = false; // <-- NEW: Ensure dialogue flag is reset on create
+    this.inDialogue = false; 
 
     // --- MAP & LAYERS SETUP ---
     const map = this.make.tilemap({ key: 'map' });
@@ -158,7 +158,7 @@ if (!this.sound.get('bg_music3')) {
   }
 
   update() {
-    // If player doesn't exist, is respawning, or transitioning, do nothing.
+    
     if (!this.player || this.isRespawning || this.isTransitioning) {
       return;
     }
@@ -214,11 +214,7 @@ if (!this.sound.get('bg_music3')) {
     }
   }
 
-  // --- NEW: Function to start a dialogue sequence ---
-// PASTE THIS FUNCTION OVER YOUR OLD `startDialogue` FUNCTION
-
-// PASTE THIS FULLY CORRECTED FUNCTION OVER YOUR OLD `startDialogue` FUNCTION
-// This version uses a Container to solve the zoom issue correctly.
+  
 
 startDialogue(lines) {
   if (this.inDialogue) return;
@@ -266,9 +262,9 @@ updateDialoguePosition() {
   const screenX = (this.player.x - this.cameras.main.scrollX) * zoom;
   const screenY = (this.player.y - this.cameras.main.scrollY) * zoom;
 
-  // Adjust offsets to place the box farther to the right and higher above the player
-  const offsetX = 35; // move more to the right
-  const offsetY = -140; // move a bit higher
+  
+  const offsetX = 35; 
+  const offsetY = -140; 
 
   this.dialogueContainer.setScale(1 / zoom); // maintain fixed size on screen
 
@@ -282,13 +278,13 @@ updateDialoguePosition() {
 
 
 
-// You also need to update endDialogue to destroy the container!
+
 endDialogue() {
   this.inDialogue = false;
   if (this.typingTimer) this.typingTimer.remove();
 
   if (this.dialogueContainer) {
-    this.dialogueContainer.destroy(); // remove everything cleanly
+    this.dialogueContainer.destroy(); 
   }
 
   this.dialogueContainer = null;
@@ -306,17 +302,17 @@ endDialogue() {
     }
 
     const line = this.dialogueLines[this.dialogueIndex];
-    this.dialogueTextObject.setText(''); // Clear previous text
+    this.dialogueTextObject.setText(''); 
 
     let charIndex = 0;
     // Use a timed event to add characters one by one
     this.typingTimer = this.time.addEvent({
-        delay: 40, // milliseconds between each character
+        delay: 40, 
         callback: () => {
             this.dialogueTextObject.text += line[charIndex];
             charIndex++;
             if (charIndex === line.length) {
-                this.typingTimer.remove(); // Stop the timer when the line is complete
+                this.typingTimer.remove(); 
             }
         },
         repeat: line.length - 1
@@ -327,12 +323,12 @@ endDialogue() {
   handleDialogueInteraction() {
     const currentLine = this.dialogueLines[this.dialogueIndex];
 
-    // If the line is still typing, skip to the end of it
+    
     if (this.dialogueTextObject.text.length < currentLine.length) {
         if (this.typingTimer) this.typingTimer.remove();
         this.dialogueTextObject.setText(currentLine);
     } else {
-        // If the line is finished, move to the next line
+        
         this.dialogueIndex++;
         this.typeNextLine();
     }
@@ -351,7 +347,7 @@ endDialogue() {
   }
     
   handlePlayerFall() {
-    // (This function remains unchanged)
+    
     this.isRespawning = true;
     const player = this.player;
     const fallX = player.x;
@@ -375,7 +371,7 @@ endDialogue() {
   }
 
   reachGoal(player, tile) {
-    // (This function remains unchanged)
+    
     if (this.isTransitioning) { return; }
     this.isTransitioning = true;
     player.setVelocity(0, 0);
@@ -406,10 +402,10 @@ endDialogue() {
   }
 
   hitEnemy(player, enemy) {
-    // (This function remains unchanged)
+    
     this.scene.start('GameOverScene', { message: 'You were killed by an enemy!' });
   }
 }
 
-// This is critical for the game to find the scene
+
 window.GameScene1 = GameScene1;

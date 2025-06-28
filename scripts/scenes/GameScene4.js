@@ -37,7 +37,7 @@ class GameScene4 extends Phaser.Scene {
     const bg = this.add.image(0, 0, 'bg_layer_7').setOrigin(0);
 bg.setDepth(-1);
 bg.setDisplaySize(610, 370);
-bg.setScrollFactor(1); // This makes it a static, non-parallax background
+bg.setScrollFactor(1); 
 
     if (!this.anims.exists('idle')) this.anims.create({ key: 'idle', frames: this.anims.generateFrameNumbers('player_idle', { start: 0, end: 10 }), frameRate: 20, repeat: -1 });
     if (!this.anims.exists('run')) this.anims.create({ key: 'run', frames: this.anims.generateFrameNumbers('player_run', { start: 0, end: 11 }), frameRate: 20, repeat: -1 });

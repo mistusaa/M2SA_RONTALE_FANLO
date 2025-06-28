@@ -27,8 +27,7 @@ class GameOverScene extends Phaser.Scene {
     .setOrigin(0.5)
     .setInteractive({ useHandCursor: true })
     .on('pointerdown', () => {
-      // --- FIX for Audio Warning ---
-      // Resume the sound context after a user gesture
+      
       if (this.sound.context.state === 'suspended') {
         this.sound.context.resume();
       }

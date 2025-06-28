@@ -2,7 +2,7 @@ class GameScene3 extends Phaser.Scene {
   constructor() {
     super('GameScene3');
 
-    // --- NEW: Dialogue properties (copied from GameScene1) ---
+    // --- NEW: Dialogue properties ---
     this.dialogueLines = null;
     this.dialogueIndex = 0;
     this.dialogueContainer = null;
@@ -13,7 +13,7 @@ class GameScene3 extends Phaser.Scene {
   }
 
   preload() {
-    // Preload assets for this level...
+    
     this.load.tilemapTiledJSON('map3', 'assets/tilemaps/level3.json');
     this.load.image('tileset_snow', 'assets/tilesets/tileset_snow.png');
     this.load.image('sign_arrow', 'assets/tilesets/sign_arrow.png');
@@ -23,8 +23,7 @@ class GameScene3 extends Phaser.Scene {
     this.load.image('bg_layer_6', 'assets/backgrounds/bg_layer_6.jpg');
     this.load.audio('coin_collect', 'assets/audio/coin_collect.mp3');
 
-    // Make sure assets from previous scenes are available if not loaded globally
-    // These are needed for the player and effects
+    
     this.load.spritesheet('appearing', 'assets/sprites/appearing.png', { frameWidth: 96, frameHeight: 96 });
     this.load.spritesheet('player_idle', 'assets/sprites/player_idle.png', { frameWidth: 32, frameHeight: 32 });
     this.load.spritesheet('player_run', 'assets/sprites/player_run.png', { frameWidth: 32, frameHeight: 32 });
@@ -57,7 +56,7 @@ class GameScene3 extends Phaser.Scene {
     const bg = this.add.image(0, 0, 'bg_layer_6').setOrigin(0);
     bg.setDepth(-1);
     bg.setDisplaySize(575, 370);
-    bg.setScrollFactor(1); // This makes it a static, non-parallax background
+    bg.setScrollFactor(1);
 
     if (!this.anims.exists('appear')) { this.anims.create({ key: 'appear', frames: this.anims.generateFrameNumbers('appearing', { start: 0, end: 5 }), frameRate: 10, repeat: 0 }); }
     if (!this.anims.exists('idle')) this.anims.create({ key: 'idle', frames: this.anims.generateFrameNumbers('player_idle', { start: 0, end: 10 }), frameRate: 20, repeat: -1 });
@@ -108,9 +107,9 @@ class GameScene3 extends Phaser.Scene {
     this.staminaRegenRate = 80;
 
     this.keys = this.input.keyboard.addKeys({ up: 'W', left: 'A', down: 'S', right: 'D' });
-    // --- CHANGE 1: REMOVED the line for 'this.jumpKey' as it's no longer needed ---
+    
 
-    // The space key is still needed for dialogue interaction, so we keep it.
+    
     this.spaceKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
     this.jumpCount = 0;
     this.hasResetJump = false;

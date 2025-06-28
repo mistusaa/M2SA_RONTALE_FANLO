@@ -6,7 +6,7 @@ const config = {
     mode: Phaser.Scale.FIT,
     autoCenter: Phaser.Scale.CENTER_BOTH
   },
-  pixelArt: true, // Ensures pixel-perfect rendering for sprites
+  pixelArt: true, 
   physics: {
     default: 'arcade',
     arcade: {
@@ -15,9 +15,9 @@ const config = {
     }
   },
   render: {
-    pixelArt: true,          // Keep pixels sharp
-    antialias: false,        // Disable smoothing for graphics
-    roundPixels: true        // Align rendering to whole pixels (important for zoom)
+    pixelArt: true,          
+    antialias: false,        
+    roundPixels: true        
   },
   scene: [
     MainMenu,

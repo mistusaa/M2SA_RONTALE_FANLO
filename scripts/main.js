@@ -21,6 +21,7 @@ const config = {
   },
   scene: [
     MainMenu,
+    CreditsScene,
     IntroductionScene,
     GameScene1,
     GameScene2,
